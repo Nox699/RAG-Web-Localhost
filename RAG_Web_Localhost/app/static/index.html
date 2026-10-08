@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local RAG</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">LOCALHOST · OLLAMA · RAG</div>
+      <h1>Local RAG Workspace</h1>
+      <p>Spørg dine egne dokumenter. Alt kører lokalt.</p>
+    </div>
+    <div id="statusBadge" class="status neutral">Kontrollerer status…</div>
+  </header>
+
+  <nav class="tabs" aria-label="Sektioner">
+    <button class="tab active" data-tab="chat">Chat</button>
+    <button class="tab" data-tab="documents">Dokumenter</button>
+    <button class="tab" data-tab="logs">Logfiler</button>
+    <button class="tab" data-tab="system">System</button>
+  </nav>
+
+  <main>
+    <section id="tab-chat" class="panel tab-panel active">
+      <div class="grid chat-grid">
+        <div class="card">
+          <h2>Stil et spørgsmål</h2>
+          <label for="question">Spørgsmål</label>
+          <textarea id="question" rows="6" maxlength="4000" placeholder="Fx: Hvad står der om eksamensformen?"></textarea>
+          <div class="row form-row">
+            <label for="topK">Evidence chunks</label>
+            <select id="topK">
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+            </select>
+            <button id="askBtn" class="primary">Spørg</button>
+          </div>
+          <div id="chatError" class="message error hidden"></div>
+        </div>
+
+        <div class="card answer-card">
+          <div class="section-heading">
+            <h2>Svar</h2>
+            <span id="answerMeta" class="muted"></span>
+          </div>
+          <div id="answer" class="answer placeholder">Svaret vises her.</div>
+        </div>
+      </div>
+
+      <div class="card evidence-card">
+        <div class="section-heading">
+          <h2>Retrieved evidence</h2>
+          <span class="muted">Similarity er ikke confidence.</span>
+        </div>
+        <div id="evidence" class="evidence-list">
+          <div class="placeholder">De chunks der blev hentet frem vises her.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-documents" class="panel tab-panel">
+      <div class="grid docs-grid">
+        <div class="card">
+          <h2>Tilføj dokumenter</h2>
+          <p class="muted">Understøttet: TXT, MD, CSV, JSON, LOG, PDF og DOCX. Maks. 20 MB pr. fil.</p>
+          <label id="dropZone" class="drop-zone" for="fileInput">
+            <strong>Slip filer her</strong>
+            <span>eller klik for at vælge</span>
+            <input id="fileInput" type="file" multiple accept=".txt,.md,.csv,.json,.log,.pdf,.docx">
+          </label>
+          <div class="row">
+            <button id="uploadBtn" class="primary">Upload & indeksér</button>
+            <button id="rebuildBtn" class="secondary">Genbyg hele indeks</button>
+          </div>
+          <div id="uploadMessage" class="message hidden"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-heading">
+            <h2>Indeks</h2>
+            <span id="indexBadge" class="mini-badge">—</span>
+          </div>
+          <dl class="stats">
+            <div><dt>Dokumenter</dt><dd id="statDocs">—</dd></div>
+            <div><dt>Chunks</dt><dd id="statChunks">—</dd></div>
+            <div><dt>Embeddingmodel</dt><dd id="statEmbed">—</dd></div>
+            <div><dt>Chatmodel</dt><dd id="statChat">—</dd></div>
+          </dl>
+          <p id="indexReason" class="muted"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-heading">
+          <h2>Dokumentbibliotek</h2>
+          <button id="refreshDocsBtn" class="ghost">Opdatér</button>
+        </div>
+        <div id="documentsList" class="documents-list"></div>
+      </div>
+    </section>
+
+    <section id="tab-logs" class="panel tab-panel">
+      <div class="log-tabs">
+        <button class="log-tab active" data-log="qa">Spørgsmål & svar</button>
+        <button class="log-tab" data-log="evidence">Spørgsmål & evidence</button>
+      </div>
+      <div class="card">
+        <div class="section-heading">
+          <h2 id="logTitle">Spørgsmål & svar</h2>
+          <div class="row compact">
+            <a id="downloadLog" class="button-link secondary" href="/api/logs/qa/download">Download .txt</a>
+            <button id="clearLogBtn" class="danger-ghost">Ryd log</button>
+          </div>
+        </div>
+        <pre id="logContent" class="log-view">Indlæser…</pre>
+      </div>
+    </section>
+
+    <section id="tab-system" class="panel tab-panel">
+      <div class="grid system-grid">
+        <div class="card">
+          <h2>Ollama</h2>
+          <div id="ollamaState" class="system-state">—</div>
+          <p id="ollamaMessage" class="muted"></p>
+          <code id="ollamaModels"></code>
+        </div>
+        <div class="card">
+          <h2>Driftsprincip</h2>
+          <p>Webserveren binder som standard kun til <code>127.0.0.1:8000</code>. Uploads gemmes i <code>data/</code>, embeddings i SQLite under <code>state/</code>, og de to historikfiler i <code>logs/</code>.</p>
+          <p class="muted">Hvis løsningen senere skal eksponeres på et netværk, bør der tilføjes login, TLS/reverse proxy og strammere host/origin-regler.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

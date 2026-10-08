@@ -1,0 +1,6 @@
+FICTIONAL TEACHING DATA — not an actual Zealand policy.
+The Autonomous Robot course runs for 10 weeks and is worth 5 ECTS.
+Students use Python and a Raspberry Pi to build a mobile robot.
+The final project demonstration is on 15 December 2026.
+The final report must be submitted as a PDF by 12 December 2026 at 12:00.
+Teams contain two or three students. Each team must demonstrate obstacle avoidance.

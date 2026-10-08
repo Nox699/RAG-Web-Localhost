@@ -1,0 +1,42 @@
+=== 2026-10-06T09:19:16+00:00 ===
+QUESTION
+hvad dato er eksamen?
+
+EVIDENCE
+
+[lab.txt#chunk1] similarity=0.2569
+FICTIONAL TEACHING DATA — not an actual Zealand policy. The robotics laboratory is open Monday to Friday from 09:00 to 16:00. Students must switch off the robot before changing its wiring. Equipment loans last seven days. Ask the laboratory tutor to borrow a robot kit. Students must return borrowed equipment to cabinet B12.
+
+[course.txt#chunk1] similarity=0.2501
+FICTIONAL TEACHING DATA — not an actual Zealand policy. The Autonomous Robot course runs for 10 weeks and is worth 5 ECTS. Students use Python and a Raspberry Pi to build a mobile robot. The final project demonstration is on 15 December 2026. The final report must be submitted as a PDF by 12 December 2026 at 12:00. Teams contain two or three students. Each team must demonstrate obstacle avoidance.
+
+=== 2026-10-06T09:33:33+00:00 ===
+QUESTION
+hvordan er software arkitekturen på roveren
+
+EVIDENCE
+
+[RapportRoverFinalPdf (1).pdf#chunk41] similarity=0.5382
+begrænsede ressourcer som vores Raspberry Pi. Herudover gemmes vores sensordata og objekt detektioner i en MariaDB database, og forbindelsen til vores services sikres gennem en Nginx reverse proxy. En mere uddybende begrundelse samt beskrivelse for hvert af de respektive valg af software dækkes i de efterfølgende afsnit i rapporten Side 18 af 68 4.3 Softwarearkitektur Projektets software arkitektur blev udviklet med fokus på moduler, objektorienteret programmering og realtids kommunikation. Vi opdelte det i selvstændige software moduler så de enkelte dele kunne udvikles, testes og fejlfindes uafhængigt af hinanden. Det gjorde det muligt at udvide det med nye funktioner uden at
+
+[RapportRoverFinalPdf (1).pdf#chunk42] similarity=0.5333
+kunne udvikles, testes og fejlfindes uafhængigt af hinanden. Det gjorde det muligt at udvide det med nye funktioner uden at skulle omsrive hele programmet. Arkitekturen blev fordelt mellem flere forskellige systemer og enheder herunder Arduinoen, RaspberryPi’en, backend-serveren, databasen og frontend. Kommunikation mellem systemerne blev håndteret gennem flere forskellige kommunikationslag. Der blev blandt andet anvendt NRF24L01 radiokommunikation til realtid styring af roveren, serialkommunikation mellem RaspberryPi og Arduino samt websocket kommunikation mellem rover og webapplikationen. Side 19 af 68 Den overordnede struktur kan deles op i: • Arduino software • RaspberryPi • Backend • Frontend • Database system • Kommunikationslag 4.3.1 Frontend
+
+[RapportRoverFinalPdf (1).pdf#chunk121] similarity=0.5291
+på MariaDB, hvor users, sensor-data, logs og detections blev gemt i tabellet. Login blev også gjort mere rigtigt med password hashing i stedet for bare at have et hardcoded login. Side 56 af 68 5.2 Hardwareopsætning (Nicklas) Side 57 af 68 5.3 Objektorienteret Programmering (Nicklas) I roverprojektet har vi valgt at opbygge Rover softwaren objektorienteret. Hvilket vil sige, at systemet ikke er skrevet som en stor fil, hvor alt funktionalitet ligger samlet, men i stedet er opdelt i flere klasser. Hver klasse har ansvar for en bestemt del af roveren, fx. motorstyring, radiokommunikation, robotarm eller sensorer. Formålet med denne opdeling
+
+[RapportRoverFinalPdf (1).pdf#chunk131] similarity=0.5050
+set har OOP gjort det muligt at opbygge roveren modulært, hvor arduino og raspberry arbejder sammen gennem adskilte software komponenter.22 22 Microsoft Learn. Object oriented programming (C#) https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/tutorials/oop Side 62 af 68 5.5 Brug af AI i projektet (Alle) I projektet har vi brugt AI som et hjælpeværktøj undervejs. Det har primært fungeret som en form for sparring, når vi sad fast med fejl som var svære at finde ift. Arduino, Raspberry Pi, frontend og backend, Docker, Nginx. AI blev anvendt som en sparringspartner under udviklingen af flere af funktionerne. Vi stod selv for de overordnede design valg bl.a. websocket
+
+[RapportRoverFinalPdf (1).pdf#chunk130] similarity=0.5005
+skal ændres i billedbehandlingen, sker det i FrameProcessor Ved at bruge objektorientet programmering er vores kode blevet mere struktureret og lettere at vedligeholde. Hver komponent i roveren har sin egen klasse, hvilket gør det lettere at forstå og videreudvikle. Inheritance bruges igennem component baseklassen, hvor flere klasser arver begin() funktionen. Encapsulation bruges til at skjule hardware detaljer som pins, PWM, servopositioner m.m. Abstraction gør at hovedprogrammet kan kalde funktioner som fx. motor.drive(...) istedet for at skulle styre hver pin. Samlet set har OOP gjort det muligt at opbygge roveren modulært, hvor arduino og raspberry arbejder sammen gennem adskilte software komponenter.22
+
+[RapportRoverFinalPdf (1).pdf#chunk69] similarity=0.4773
+returnerer data til hvem som helst. Før data sendes, skal token valideres. I det store hele bruger vi API til den strukturerede dataudveksling mellem frontend og backend. Frontend spørger backend om data, backend behandler data og sender tilbage som JSON. Det gør det lettere at holde frontend, backend og database adskilt, og giver backend rollen som det centrale punkt for data og adgang. Sikkerhed I løbet af vores projekt, har sikkerhed været en vigtig del, fordi systemet ikke bare er en almindelig hjemmeside. Hjemmesiden giver adgang til at styre en fysisk rover, se live video og hente data. Det betyder
+
+[RapportRoverFinalPdf (1).pdf#chunk110] similarity=0.4654
+registreret konstant flere gange i træk Implementeringen af databasen gjorde det muligt at gemme og strukturere roverens data på en stabil og overskuelig måde. Under udviklingen opstod der problemer med null værdier, men de fleste af disse blev løst ved forkert end point, validering af data og cooldown logik. Vi nåede dog ikke at løse null problemet med object identifikation. 5. Dokumentation af udviklingsproces 5.1 Implementering og fejlretning (Nicklas) Manuel styring via server Den manuelle styring af roveren blev håndteret via kontrolpanelet, hvor brugeren kan styre roveren via knapper. For at matche den oprindelige rovers styredata valgte vi at gøre
+
+[RapportRoverFinalPdf (1).pdf#chunk16] similarity=0.4607
+sammenstød via ultrasonic sensor. 6. Roveren skal kunne bruge AI til objektgenkendelse og farvegenkendelse. 4.1.2 Ikke-funktionelle krav Der er også ikke-funktionelle krav, som handler om, hvordan roverens system skal fungere i stedet for hvad roverens system, skal kunne gøre. 1. Kommunikation mellem Pi og server skal foregå over en sikker forbindelse via reverse proxy. 2. Systemet skal kræve login for at få adgang til data og styring. 3. Kamera stream skal have en acceptabel forsinkelse så manuel styring via serveren er muligt. 4. Webserveren skal automatisk genstarte ved nedbrud. 5. API endpoints skal beskyttes mod uautoriseret adgang fra hackere. Side
+

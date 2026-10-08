@@ -1,0 +1,5 @@
+FICTIONAL TEACHING DATA — not an actual Zealand policy.
+The robot project assessment consists of a demonstration, a report, and questions.
+The demonstration contributes 40 percent, the report 40 percent, and individual questions 20 percent.
+The report must explain the sensors, Python program, testing method, and limitations.
+Every student must explain their own contribution to the project.

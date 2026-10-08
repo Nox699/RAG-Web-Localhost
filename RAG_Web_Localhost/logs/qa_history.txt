@@ -1,0 +1,36 @@
+=== 2026-10-06T09:19:16+00:00 ===
+QUESTION
+hvad dato er eksamen?
+
+ANSWER
+The exam date mentioned in the excerpts is **15 December 2026** for the final project demonstration. However, the exact exam date is not explicitly stated in the provided text. The final report submission deadline is **12 December 2026**, but this is a separate requirement. 
+
+Answer: **15 December 2026** [course.txt#chunk1]
+
+SOURCES
+- lab.txt#chunk1 (similarity=0.2569)
+- course.txt#chunk1 (similarity=0.2501)
+
+=== 2026-10-06T09:33:33+00:00 ===
+QUESTION
+hvordan er software arkitekturen på roveren
+
+ANSWER
+The software architecture of the rover is modular, divided into separate components (Arduino, Raspberry Pi, backend, frontend, database, and communication layers). It employs **object-oriented programming (OOP)**, with functionalities organized into classes (e.g., motor control, communication, sensor data handling). Key aspects include:  
+- **Modular design**: Independent development, testing, and debugging of modules (e.g., Arduino, Raspberry Pi, backend).  
+- **Communication layers**: Uses NRF24L01 for real-time control, serial communication between Pi and Arduino, and WebSocket for web app interaction.  
+- **Separation of concerns**: Frontend, backend, and database are decoupled via APIs, with the backend handling data processing and sending JSON responses.  
+- **Security**: Token validation, API protection, and secure communication via Nginx reverse proxy.  
+
+This architecture ensures scalability, maintainability, and modular expansion.
+
+SOURCES
+- RapportRoverFinalPdf (1).pdf#chunk41 (similarity=0.5382)
+- RapportRoverFinalPdf (1).pdf#chunk42 (similarity=0.5333)
+- RapportRoverFinalPdf (1).pdf#chunk121 (similarity=0.5291)
+- RapportRoverFinalPdf (1).pdf#chunk131 (similarity=0.5050)
+- RapportRoverFinalPdf (1).pdf#chunk130 (similarity=0.5005)
+- RapportRoverFinalPdf (1).pdf#chunk69 (similarity=0.4773)
+- RapportRoverFinalPdf (1).pdf#chunk110 (similarity=0.4654)
+- RapportRoverFinalPdf (1).pdf#chunk16 (similarity=0.4607)
+
